@@ -3,4 +3,6 @@ controller/target
 controller/Cargo.lock
 __pycache__/
 
+config.toml
+
 *.DS_Store

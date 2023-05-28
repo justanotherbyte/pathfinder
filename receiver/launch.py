@@ -1,9 +1,5 @@
-import time
+import redis.asyncio as aioredis
 
-from rover import Rover
-
-
-rover = Rover()
-rover.forward()
-
-time.sleep(3)
+class RedisPubSubReceiver:
+    def __init__(self):
+        self.redis = aioredis.from_url()
