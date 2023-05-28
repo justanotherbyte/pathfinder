@@ -1,3 +1,5 @@
 receiver/.env/
 controller/target
 controller/Cargo.lock
+
+*.DS_Store
