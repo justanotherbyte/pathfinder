@@ -28,21 +28,20 @@ async fn main() {
             };
             down_handler.load_message(message);
         } else if key == &Keycode::Right || key == &Keycode::D {
-            let message = RedisMessage {
+            // rotate towards the right direction
+            let right_msg = RedisMessage {
                 motor: Motor::Left,
                 direction: Direction::Forward,
                 speed: 1
             };
-            down_handler.load_message(message);
-        } else if key == &Keycode::Left || key == &Keycode::A {
-            let message = RedisMessage {
+            let left_msg = RedisMessage {
                 motor: Motor::Right,
-                direction: Direction::Forward,
+                direction: Direction::Backward,
                 speed: 1
             };
-            down_handler.load_message(message);
-        } else if key == &Keycode::K {
-            // rotate towards the left direction
+            down_handler.load_message(right_msg);
+            down_handler.load_message(left_msg);
+        } else if key == &Keycode::Left || key == &Keycode::A {
             let right_msg = RedisMessage {
                 motor: Motor::Right,
                 direction: Direction::Forward,
@@ -74,20 +73,20 @@ async fn main() {
             };
             up_handler.load_message(message);
         } else if key == &Keycode::Right || key == &Keycode::D {
-            let message = RedisMessage {
+            // rotate towards the right direction
+            let right_msg = RedisMessage {
                 motor: Motor::Left,
                 direction: Direction::Forward,
                 speed: 0
             };
-            up_handler.load_message(message);
-        } else if key == &Keycode::Left || key == &Keycode::A {
-            let message = RedisMessage {
+            let left_msg = RedisMessage {
                 motor: Motor::Right,
-                direction: Direction::Forward,
+                direction: Direction::Backward,
                 speed: 0
             };
-            up_handler.load_message(message);
-        } else if key == &Keycode::Space {
+            up_handler.load_message(right_msg);
+            up_handler.load_message(left_msg);
+        } else if key == &Keycode::Left || key == &Keycode::A {
             // rotate towards the left direction
             let right_msg = RedisMessage {
                 motor: Motor::Right,
@@ -101,7 +100,7 @@ async fn main() {
             };
             up_handler.load_message(right_msg);
             up_handler.load_message(left_msg);
-        }
+        };
     });
 
     handler.spawn_tasks();
