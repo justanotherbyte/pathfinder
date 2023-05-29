@@ -21,8 +21,6 @@ class Rover:
             # to have the same enable pin. this is fine since both motors
             # will always be enabled and disabled at the same time
         )
-        
 
-    def forward(self):
-        self.right_motor.forward()
-        self.left_motor.forward()
+    
+

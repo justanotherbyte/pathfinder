@@ -16,6 +16,7 @@ async fn main() {
         if key == &Keycode::Up || key == &Keycode::W {
             let message = RedisMessage {
                 motor: Motor::Both,
+                direction: Direction::Forward,
                 speed: 1
             };
             down_handler.load_message(message);
@@ -26,6 +27,7 @@ async fn main() {
         if key == &Keycode::Up || key == &Keycode::W {
             let message = RedisMessage {
                 motor: Motor::Both,
+                direction: Direction::Forward, // this is redundant
                 speed: 0
             };
             up_handler.load_message(message);

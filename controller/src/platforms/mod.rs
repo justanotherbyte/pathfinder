@@ -19,13 +19,19 @@ pub trait PlatformHandler {
 pub enum Motor {
     Left,
     Right,
-    Both,
-    Pivot(bool)
+    Both
+}
+
+#[derive(Serialize, Deserialize, Clone, Copy, Debug)]
+pub enum Direction {
+    Forward,
+    Backward
 }
 
 #[derive(Serialize, Deserialize, Clone, Debug)]
 pub struct RedisMessage {
     pub motor: Motor,
+    pub direction: Direction,
     pub speed: u16
 }
 
