@@ -20,6 +20,13 @@ async fn main() {
                 speed: 1
             };
             down_handler.load_message(message);
+        } else if key == &Keycode::Down || key == &Keycode::S {
+            let message = RedisMessage {
+                motor: Motor::Both,
+                direction: Direction::Backward,
+                speed: 1
+            };
+            down_handler.load_message(message);
         }
     });
     let _guard = device_state.on_key_up(move |key| {
@@ -28,6 +35,13 @@ async fn main() {
             let message = RedisMessage {
                 motor: Motor::Both,
                 direction: Direction::Forward, // this is redundant
+                speed: 0
+            };
+            up_handler.load_message(message);
+        } else if key == &Keycode::Down || key == &Keycode::S {
+            let message = RedisMessage {
+                motor: Motor::Both,
+                direction: Direction::Backward,
                 speed: 0
             };
             up_handler.load_message(message);
