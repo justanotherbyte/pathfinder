@@ -3,15 +3,20 @@ import json
 
 import toml
 import msgpack
+import msgspec
 import redis.asyncio as aioredis
 
 from rover import Rover
+from config import Config
+
 
 class RedisPubSubReceiver:
     def __init__(self):
-        config = toml.load("config.toml")
-        redis_url = config["redis"]["url"]
-        self.redis = aioredis.from_url(redis_url)
+        with open("config.toml", "r") as f:
+            contents = f.read()
+        
+        config = msgspec.toml.decode(contents, type=Config)
+        self.redis = aioredis.from_url(config.redis.url)
         self.pubsub = self.redis.pubsub()
 
         self.rover = Rover()
@@ -35,8 +40,8 @@ class RedisPubSubReceiver:
         if motor == "both":
             right_func = getattr(self.rover.right_motor, direction)
             left_func = getattr(self.rover.left_motor, direction)
-            right_func()
-            left_func()
+            right_func(speed)
+            left_func(speed)
         else:
             motor = getattr(self.rover, f"{motor}_motor")
             func = getattr(motor, direction)

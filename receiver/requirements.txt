@@ -2,3 +2,4 @@ gpiozero
 msgpack
 redis[hiredis]
 RPi.GPIO
+msgspec
