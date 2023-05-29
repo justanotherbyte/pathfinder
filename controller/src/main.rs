@@ -2,7 +2,7 @@ mod platforms;
 
 use device_query::{DeviceEvents, DeviceState, Keycode};
 
-use platforms::{PlatformHandler, RedisMessage, Motor};
+use platforms::{PlatformHandler, RedisMessage, Motor, Direction};
 
 #[tokio::main]
 async fn main() {
