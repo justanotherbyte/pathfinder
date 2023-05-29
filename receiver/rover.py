@@ -32,12 +32,12 @@ class Rover:
             self.leds.append(LED(pin_num))
 
         print(self.leds)
-        threading.Thread(target=self.rotate_lights, daemon=True)
+        threading.Thread(target=self.rotate_lights, daemon=True).start()
     
 
     def rotate_lights(self):
-        for led in self.leds:
-            print("led")
-            led.on()
-            time.sleep(0.5)
-            led.off()
+        while True:
+            for led in self.leds:
+                led.on()
+                time.sleep(0.1)
+                led.off()
