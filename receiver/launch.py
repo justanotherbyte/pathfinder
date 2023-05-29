@@ -32,9 +32,15 @@ class RedisPubSubReceiver:
         speed = data["speed"]
         direction = data["direction"].lower()
         motor = data["motor"].lower()
-        motor = getattr(self.rover, f"{motor}_motor")
-        func = getattr(motor, direction)
-        func(speed)
+        if motor == "both":
+            right_func = getattr(self.rover.right_motor, direction)
+            left_func = getattr(self.rover.left_motor, direction)
+            right_func()
+            left_func()
+        else:
+            motor = getattr(self.rover, f"{motor}_motor")
+            func = getattr(motor, direction)
+            func(speed)
 
 
 
