@@ -99,8 +99,8 @@ async fn main() {
                 direction: Direction::Backward,
                 speed: 0
             };
-            down_handler.load_message(right_msg);
-            down_handler.load_message(left_msg);
+            up_handler.load_message(right_msg);
+            up_handler.load_message(left_msg);
         }
     });
 
