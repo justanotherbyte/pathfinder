@@ -3,3 +3,4 @@ msgpack
 redis[hiredis]
 RPi.GPIO
 msgspec
+tomli
