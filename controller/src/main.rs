@@ -87,7 +87,7 @@ async fn main() {
                 speed: 0
             };
             up_handler.load_message(message);
-        } else if key == &Keycode::K {
+        } else if key == &Keycode::Space {
             // rotate towards the left direction
             let right_msg = RedisMessage {
                 motor: Motor::Right,
