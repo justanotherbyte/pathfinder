@@ -41,6 +41,20 @@ async fn main() {
                 speed: 1
             };
             down_handler.load_message(message);
+        } else if key == &Keycode::K {
+            // rotate towards the left direction
+            let right_msg = RedisMessage {
+                motor: Motor::Right,
+                direction: Direction::Forward,
+                speed: 1
+            };
+            let left_msg = RedisMessage {
+                motor: Motor::Left,
+                direction: Direction::Backward,
+                speed: 1
+            };
+            down_handler.load_message(right_msg);
+            down_handler.load_message(left_msg);
         }
     });
     let _guard = device_state.on_key_up(move |key| {
@@ -73,6 +87,20 @@ async fn main() {
                 speed: 0
             };
             up_handler.load_message(message);
+        } else if key == &Keycode::K {
+            // rotate towards the left direction
+            let right_msg = RedisMessage {
+                motor: Motor::Right,
+                direction: Direction::Forward,
+                speed: 0
+            };
+            let left_msg = RedisMessage {
+                motor: Motor::Left,
+                direction: Direction::Backward,
+                speed: 0
+            };
+            down_handler.load_message(right_msg);
+            down_handler.load_message(left_msg);
         }
     });
 
