@@ -46,7 +46,7 @@ class Rover:
         offset = 190000
         GPIO.output(self.TRIGGER_PIN, 1)
         time.sleep(.00001)  # 10 microseconds
-        GPIO.output(self.ECHO_PIN, 0)
+        GPIO.output(self.TRIGGER_PIN, 0)
 
 
         # Wait for the ECHO pin to go high
