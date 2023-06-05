@@ -19,6 +19,7 @@ class Rover:
     LED_PINS = [17, 27, 22, 23]
 
     def __init__(self):
+        GPIO.setmode(GPIO.BCM)
         GPIO.setwarnings(False)
 
         GPIO.setup(self.TRIGGER_PIN, GPIO.OUT)
