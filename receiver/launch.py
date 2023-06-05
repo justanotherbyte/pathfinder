@@ -31,12 +31,13 @@ class RedisPubSubReceiver:
                     unpacked = msgpack.loads(data)
                     print(unpacked)
                     parsed = json.loads(unpacked)
-                    self.handle_message(parsed)
+                    await self.handle_message(parsed)
     
-    def handle_message(self, data: dict):
+    async def handle_message(self, data: dict):
         speed = data["speed"]
         direction = data["direction"].lower()
         motor = data["motor"].lower()
+        nonce = int(data["nonce"])
         if motor == "both":
             right_func = getattr(self.rover.right_motor, direction)
             left_func = getattr(self.rover.left_motor, direction)
@@ -46,6 +47,13 @@ class RedisPubSubReceiver:
             motor = getattr(self.rover, f"{motor}_motor")
             func = getattr(motor, direction)
             func(speed)
+
+        response = {
+            "nonce": nonce,
+            "distance": self.rover.read_distance()
+        }
+        packed = msgpack.dumps(response)
+        await self.redis.publish("pathfinder:distance", packed) # type: ignore
 
 
 
