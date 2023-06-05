@@ -14,6 +14,8 @@ class Rover:
         self.left_prev = False
         self.right_prev = False
 
+        self._pos = (0, 0)
+
     def handle_input(self, mapping: dict):
         forward = mapping['w']
         left = mapping['a']

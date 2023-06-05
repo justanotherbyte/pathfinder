@@ -17,3 +17,6 @@ class RedisMessage(msgspec.Struct):
     direction: Direction
     motor: Motor
     speed: float
+
+class DistanceMessage(msgspec.Struct):
+    distance = float

@@ -22,7 +22,7 @@ class RedisPubSubReceiver:
         self.rover = Rover()
 
     async def receive(self):
-        await self.pubsub.subscribe("pathfinder")
+        await self.pubsub.subscribe("pathfinder:movement")
         while True:
             message = await self.pubsub.get_message(True)
             if message:
