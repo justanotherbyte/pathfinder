@@ -1,3 +1,5 @@
+import random
+
 from message import (
     Direction,
     Motor,
@@ -16,6 +18,9 @@ class Rover:
 
         self._pos = (0, 0)
 
+    def _nonce(self) -> int:
+        return random.randint(100, 10000)
+
     def handle_input(self, mapping: dict):
         forward = mapping['w']
         left = mapping['a']
@@ -27,7 +32,8 @@ class Rover:
             f_message = RedisMessage(
                 direction=Direction.Forward,
                 motor=Motor.Both,
-                speed=forward
+                speed=forward,
+                nonce=self._nonce()
             )
             self.redis.send(f_message)
             self.forward_prev = True
@@ -36,7 +42,8 @@ class Rover:
             b_message = RedisMessage(
                 direction=Direction.Backward,
                 motor=Motor.Both,
-                speed=backward
+                speed=backward,
+                nonce=self._nonce()
             )
             self.redis.send(b_message)
             self.backward_prev = True
@@ -46,12 +53,14 @@ class Rover:
             motor_right = RedisMessage(
                 direction=Direction.Forward,
                 motor=Motor.Right,
-                speed=1.0
+                speed=1.0,
+                nonce=self._nonce()
             )
             motor_left = RedisMessage(
                 direction=Direction.Backward,
                 motor=Motor.Left,
-                speed=1.0
+                speed=1.0,
+                nonce=self._nonce()
             )
             self.redis.send(motor_right, motor_left)
             self.left_prev = True
@@ -60,12 +69,14 @@ class Rover:
             motor_right = RedisMessage(
                 direction=Direction.Backward,
                 motor=Motor.Right,
-                speed=1.0
+                speed=1.0,
+                nonce=self._nonce()
             )
             motor_left = RedisMessage(
                 direction=Direction.Forward,
                 motor=Motor.Left,
-                speed=1.0
+                speed=1.0,
+                nonce=self._nonce()
             )
             self.redis.send(motor_right, motor_left)
             self.right_prev = True
@@ -74,7 +85,8 @@ class Rover:
         stop_msg = RedisMessage(
             direction=Direction.Forward, # redundant here doesn't matter
             motor=Motor.Both,
-            speed=0.0
+            speed=0.0,
+            nonce=self._nonce()
         )
 
         if self.forward_prev:
